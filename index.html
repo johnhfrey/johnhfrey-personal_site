@@ -1,1 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John H. Frey | Enterprise Operations Leader | Systems Architect</title>
+<meta name="description" content="I build performance systems that make execution predictable in high-stakes, regulated environments. Enterprise operations, governance, and leadership infrastructure.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
 
+/* ── TOKENS ── */
+:root {
+  --bg:          #FFFFFF;
+  --text:        #111111;
+  --text-sec:    #555555;
+  --accent:      #0B3D91;
+  --accent-hover:#093278;
+  --max-w:       1100px;
+  --pad-x:       24px;
+  --sec-y:       96px;
+  --block-gap:   32px;
+  --radius:      8px;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+
+/* ── LAYOUT ── */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+}
+
+section {
+  padding: var(--sec-y) 0;
+}
+
+/* ── TYPOGRAPHY ── */
+h1, h2, h3, h4 {
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+h1 { font-size: clamp(32px, 5vw, 48px); letter-spacing: -0.02em; }
+h2 { font-size: clamp(24px, 3.5vw, 36px); letter-spacing: -0.01em; margin-bottom: var(--block-gap); }
+h3 { font-size: 20px; margin-bottom: 8px; }
+h4 { font-size: 17px; margin-bottom: 6px; }
+
+p { color: var(--text-sec); }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-block;
+  padding: 14px 28px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--accent-hover); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--accent);
+  padding: 14px 0;
+}
+.btn-secondary:hover { color: var(--accent-hover); }
+
+/* ── NAV ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.nav-brand {
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-sec);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+
+.nav-cta a {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  transition: background-color 0.2s;
+}
+.nav-cta a:hover { background: var(--accent-hover); }
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text);
+  transition: all 0.3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 64px;
+  left: 0; right: 0;
+  background: var(--bg);
+  border-bottom: 1px solid #E5E5E5;
+  z-index: 99;
+  padding: 16px var(--pad-x) 24px;
+}
+.mobile-menu.open { display: block; }
+.mobile-menu a {
+  display: block;
+  padding: 12px 0;
+  font-size: 15px;
+  color: var(--text-sec);
+  border-bottom: 1px solid #F0F0F0;
+}
+.mobile-menu a:last-child { border-bottom: none; }
+.mobile-menu a:hover { color: var(--text); }
+.mobile-menu .mobile-cta {
+  display: block;
+  margin-top: 16px;
+  padding: 12px 20px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: var(--radius);
+  text-align: center;
+  border-bottom: none;
+}
+.mobile-menu .mobile-cta:hover { background: var(--accent-hover); color: #fff; }
+
+/* ── HERO ── */
+#hero {
+  padding: 120px 0 var(--sec-y);
+}
+
+.hero-content {
+  max-width: 720px;
+}
+
+.hero-content h1 {
+  margin-bottom: 20px;
+}
+
+.hero-sub {
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--text-sec);
+  margin-bottom: 32px;
+  max-width: 640px;
+}
+
+.hero-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-bottom: 40px;
+}
+
+.hero-strip span {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-sec);
+  white-space: nowrap;
+}
+
+.hero-strip span::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+/* ── WHAT I DO ── */
+#what-i-do { border-top: 1px solid #E5E5E5; }
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  padding: 32px;
+  border: 1px solid #E5E5E5;
+  border-radius: var(--radius);
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: var(--accent); }
+
+.card h3 { color: var(--text); }
+
+.card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-sec);
+}
+
+/* ── OPERATING SYSTEM ── */
+#operating-system {
+  background: #FAFAFA;
+  border-top: 1px solid #E5E5E5;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.os-intro {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-sec);
+  max-width: 640px;
+  margin-bottom: 48px;
+}
+
+.os-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.os-block {
+  padding: 28px;
+  background: var(--bg);
+  border: 1px solid #E5E5E5;
+  border-radius: var(--radius);
+}
+
+.os-block h3 {
+  font-size: 17px;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.os-block p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.os-callout {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  padding: 24px 0;
+  border-top: 2px solid var(--accent);
+  max-width: 640px;
+}
+
+/* ── PROOF ── */
+#proof { border-top: 1px solid #E5E5E5; }
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.proof-tile {
+  padding: 28px;
+  border: 1px solid #E5E5E5;
+  border-radius: var(--radius);
+}
+
+.proof-tile h3 {
+  font-size: 17px;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.proof-tile p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── WORK ── */
+#work {
+  background: #FAFAFA;
+  border-top: 1px solid #E5E5E5;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.case {
+  padding: 32px;
+  background: var(--bg);
+  border: 1px solid #E5E5E5;
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+}
+.case:last-child { margin-bottom: 0; }
+
+.case h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+
+.case-row {
+  margin-bottom: 12px;
+}
+.case-row:last-child { margin-bottom: 0; }
+
+.case-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.case-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-sec);
+}
+
+/* ── NOTES ── */
+#notes { border-top: 1px solid #E5E5E5; }
+
+.notes-intro {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-sec);
+  margin-bottom: 32px;
+  max-width: 640px;
+}
+
+.notes-list {
+  list-style: none;
+  margin-bottom: 32px;
+}
+
+.notes-list li {
+  padding: 16px 0;
+  border-bottom: 1px solid #E5E5E5;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+.notes-list li:first-child { border-top: 1px solid #E5E5E5; }
+
+/* ── ABOUT ── */
+#about {
+  background: #FAFAFA;
+  border-top: 1px solid #E5E5E5;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.about-text {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--text-sec);
+  max-width: 720px;
+}
+
+/* ── CONNECT ── */
+#connect { border-top: 1px solid #E5E5E5; }
+
+.connect-copy {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-sec);
+  max-width: 640px;
+  margin-bottom: 32px;
+}
+
+.connect-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.connect-micro {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-sec);
+  max-width: 560px;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 48px 0;
+  border-top: 1px solid #E5E5E5;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-copy {
+  font-size: 14px;
+  color: var(--text-sec);
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-size: 14px;
+  color: var(--text-sec);
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--text); }
+
+.footer-built {
+  width: 100%;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-sec);
+  margin-top: 24px;
+  opacity: 0.6;
+}
+
+/* ── RESPONSIVE: TABLET ── */
+@media (max-width: 900px) {
+  .cards-grid { grid-template-columns: 1fr 1fr; }
+  .os-grid { grid-template-columns: 1fr 1fr; }
+  .proof-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── RESPONSIVE: MOBILE ── */
+@media (max-width: 640px) {
+  :root {
+    --sec-y: 64px;
+    --block-gap: 24px;
+  }
+
+  /* Nav */
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+
+  /* Hero */
+  #hero { padding: 80px 0 var(--sec-y); }
+  .hero-sub { font-size: 16px; }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+
+  /* Grids */
+  .cards-grid { grid-template-columns: 1fr; }
+  .os-grid { grid-template-columns: 1fr; }
+  .proof-grid { grid-template-columns: 1fr; }
+
+  /* Footer */
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">JOHN H. FREY</a>
+
+    <ul class="nav-links">
+      <li><a href="#operating-system">Operating System</a></li>
+      <li><a href="#proof">Proof</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#notes">Notes</a></li>
+      <li><a href="#connect">Connect</a></li>
+    </ul>
+
+    <div class="nav-cta">
+      <a href="#connect">Let's connect</a>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#operating-system" onclick="closeMobile()">Operating System</a>
+  <a href="#proof" onclick="closeMobile()">Proof</a>
+  <a href="#work" onclick="closeMobile()">Work</a>
+  <a href="#notes" onclick="closeMobile()">Notes</a>
+  <a href="#connect" onclick="closeMobile()">Connect</a>
+  <a href="#connect" class="mobile-cta" onclick="closeMobile()">Let's connect</a>
+</div>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>I build performance systems that make execution predictable.</h1>
+      <p class="hero-sub">Enterprise-scale operations executive in regulated, safety-critical environments. I design governance, operating cadence, and leadership infrastructure so performance holds under pressure.</p>
+      <div class="hero-strip">
+        <span>650+ workforce</span>
+        <span>$800M+ asset portfolio</span>
+        <span>Regulated aviation operations</span>
+        <span>Formal inspection governance</span>
+        <span>AI-enabled leadership platform</span>
+      </div>
+      <div class="hero-actions">
+        <a href="#connect" class="btn btn-primary">Let's connect</a>
+        <a href="#operating-system" class="btn btn-secondary">See how I build systems →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHAT I DO ── -->
+<section id="what-i-do">
+  <div class="container">
+    <h2>What I do</h2>
+    <div class="cards-grid">
+      <div class="card">
+        <h3>Execution Governance</h3>
+        <p>Design standards, inspection rhythms, and accountability structures. Remove ambiguity. Stabilize performance.</p>
+      </div>
+      <div class="card">
+        <h3>Performance Infrastructure</h3>
+        <p>Build shared dashboards and defined metrics. Establish one operating picture aligned to execution and resource discipline.</p>
+      </div>
+      <div class="card">
+        <h3>Leadership Infrastructure</h3>
+        <p>Develop supervisors through repetition, feedback, and clear expectations. Build durable depth at scale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── OPERATING SYSTEM ── -->
+<section id="operating-system">
+  <div class="container">
+    <h2>My operating system</h2>
+    <p class="os-intro">Sustained performance is structural. I focus on the architecture that keeps execution stable when conditions change.</p>
+    <div class="os-grid">
+      <div class="os-block">
+        <h3>Signal &gt; Noise</h3>
+        <p>Clarify information flow and meeting load. Fewer surprises. Faster decisions.</p>
+      </div>
+      <div class="os-block">
+        <h3>Standards With Teeth</h3>
+        <p>Defined expectations and an inspection rhythm. Reduced variance. Safer execution.</p>
+      </div>
+      <div class="os-block">
+        <h3>Cadence and Ownership</h3>
+        <p>Clear operating rhythm and decision rights. Defined owners. Clear escalation paths.</p>
+      </div>
+      <div class="os-block">
+        <h3>Leadership Depth</h3>
+        <p>Strength at the first line. Fewer single points of failure. Increased resilience.</p>
+      </div>
+    </div>
+    <div class="os-callout">In complex organizations, performance failure is usually structural before it is personal.</div>
+  </div>
+</section>
+
+<!-- ── PROOF ── -->
+<section id="proof">
+  <div class="container">
+    <h2>Proof of scale and outcomes</h2>
+    <div class="proof-grid">
+      <div class="proof-tile">
+        <h3>650+ workforce</h3>
+        <p>Accountable for execution across a large aviation organization.</p>
+      </div>
+      <div class="proof-tile">
+        <h3>$800M+ asset portfolio</h3>
+        <p>Governance responsibility in safety-critical operations.</p>
+      </div>
+      <div class="proof-tile">
+        <h3>Inspection governance</h3>
+        <p>Standards built to perform under formal evaluation.</p>
+      </div>
+      <div class="proof-tile">
+        <h3>Leadership development infrastructure</h3>
+        <p>Structured mechanisms producing a strong supervisory bench.</p>
+      </div>
+      <div class="proof-tile">
+        <h3>Operational visibility</h3>
+        <p>Replaced fragmented reporting with a unified dashboard and decision cadence.</p>
+      </div>
+      <div class="proof-tile">
+        <h3>AI-enabled platform</h3>
+        <p>Built and deployed a leadership development simulator adopted beyond its original organization.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WORK ── -->
+<section id="work">
+  <div class="container">
+    <h2>Selected systems built</h2>
+
+    <div class="case">
+      <h3>Operational Performance Dashboard</h3>
+      <div class="case-row">
+        <div class="case-label">Problem</div>
+        <div class="case-text">Fragmented reporting eroded trust in readiness data.</div>
+      </div>
+      <div class="case-row">
+        <div class="case-label">System Built</div>
+        <div class="case-text">Unified dashboard with defined metrics, ownership, and review cadence.</div>
+      </div>
+      <div class="case-row">
+        <div class="case-label">Result</div>
+        <div class="case-text">Reduced manual roll-ups by eliminating recurring consolidation and accelerated decision cycles.</div>
+      </div>
+      <div class="case-row">
+        <div class="case-label">What It Shows</div>
+        <div class="case-text">Structure improves decision quality.</div>
+      </div>
+    </div>
+
+    <div class="case">
+      <h3>Compliance and Inspection Readiness</h3>
+      <div class="case-row">
+        <div class="case-label">Problem</div>
+        <div class="case-text">Standards drift increased operational risk.</div>
+      </div>
+      <div class="case-row">
+        <div class="case-label">System Built</div>
+        <div class="case-text">Inspection rhythm and accountability mechanisms.</div>
+      </div>
+      <div class="case-row">
+        <div class="case-label">Result</div>
+        <div class="case-text">Consistent adherence under formal evaluation across recurring inspection cycles.</div>
+      </div>
+      <div class="case-row">
+        <div class="case-label">What It Shows</div>
+        <div class="case-text">Standards matter most when tested.</div>
+      </div>
+    </div>
+
+    <div class="case">
+      <h3>AI-Enabled Leadership Development Platform</h3>
+      <div class="case-row">
+        <div class="case-label">Problem</div>
+        <div class="case-text">Judgment and performance conversations were difficult to scale.</div>
+      </div>
+      <div class="case-row">
+        <div class="case-label">System Built</div>
+        <div class="case-text">Scenario-based simulator with structured feedback and defined evaluation criteria.</div>
+      </div>
+      <div class="case-row">
+        <div class="case-label">Result</div>
+        <div class="case-text">Deployed beyond the original organization, including academic adoption, as a structured development tool.</div>
+      </div>
+      <div class="case-row">
+        <div class="case-label">What It Shows</div>
+        <div class="case-text">Leadership capability can be engineered intentionally.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── NOTES ── -->
+<section id="notes">
+  <div class="container">
+    <h2>Notes</h2>
+    <p class="notes-intro">I share notes on execution, systems architecture, and leadership infrastructure. LinkedIn is where I maintain that thread.</p>
+    <ul class="notes-list">
+      <li>Execution fails without ownership clarity</li>
+      <li>Why standards drift in growing organizations</li>
+      <li>Designing a shared operating picture</li>
+    </ul>
+    <a href="https://www.linkedin.com/in/john-h-frey/" class="btn btn-primary" target="_blank" rel="noopener">See notes on LinkedIn</a>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="container">
+    <h2>About</h2>
+    <p class="about-text">I lead operations governance for a 650+ person aviation organization, accountable for execution discipline and leadership infrastructure across an $800M+ asset portfolio. I operate in regulated, safety-critical conditions where standards are audited and performance variance carries consequence. For more than two decades, I have built systems that align people, metrics, and accountability. I bring that same discipline to enterprise teams that require clarity, stability, and predictable execution.</p>
+  </div>
+</section>
+
+<!-- ── CONNECT ── -->
+<section id="connect">
+  <div class="container">
+    <h2>Connect</h2>
+    <p class="connect-copy">If you are building systems for execution, accountability, or leadership development, I am glad to connect. LinkedIn is the most direct way to reach me.</p>
+    <div class="connect-actions">
+      <a href="https://www.linkedin.com/in/john-h-frey/" class="btn btn-primary" target="_blank" rel="noopener">Connect on LinkedIn</a>
+      <a href="mailto:john@johnhfrey.com" class="btn btn-secondary">Email me →</a>
+    </div>
+    <p class="connect-micro">If you are reaching out about a team or operational challenge, a sentence of context is helpful.</p>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-copy">&copy; John H. Frey</span>
+      <ul class="footer-links">
+        <li><a href="https://www.linkedin.com/in/john-h-frey/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="mailto:john@johnhfrey.com">Email</a></li>
+      </ul>
+    </div>
+    <div class="footer-built">Built and maintained by John.</div>
+  </div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+
+hamburger.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  hamburger.setAttribute('aria-expanded', open);
+});
+
+function closeMobile() {
+  mobileMenu.classList.remove('open');
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+}
+</script>
+</body>
+</html>
