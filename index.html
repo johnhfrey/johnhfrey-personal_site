@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>John H. Frey | Enterprise Operations Leader | Systems Architect</title>
 <meta name="description" content="I build performance systems that make execution predictable in high-stakes, regulated environments. Enterprise operations, governance, and leadership infrastructure.">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
@@ -204,8 +207,15 @@ nav {
   padding: 120px 0 var(--sec-y);
 }
 
+.hero-layout {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+}
+
 .hero-content {
-  max-width: 720px;
+  flex: 1;
+  min-width: 0;
 }
 
 .hero-content h1 {
@@ -252,6 +262,18 @@ nav {
   align-items: center;
   gap: 24px;
   flex-wrap: wrap;
+}
+
+.hero-image {
+  flex-shrink: 0;
+  width: 280px;
+}
+
+.hero-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
 }
 
 /* ── WHAT I DO ── */
@@ -503,6 +525,8 @@ footer {
 
 /* ── RESPONSIVE: TABLET ── */
 @media (max-width: 900px) {
+  .hero-layout { gap: 40px; }
+  .hero-image { width: 220px; }
   .cards-grid { grid-template-columns: 1fr 1fr; }
   .os-grid { grid-template-columns: 1fr 1fr; }
   .proof-grid { grid-template-columns: 1fr 1fr; }
@@ -521,6 +545,12 @@ footer {
 
   /* Hero */
   #hero { padding: 80px 0 var(--sec-y); }
+  .hero-layout {
+    flex-direction: column-reverse;
+    gap: 32px;
+    align-items: flex-start;
+  }
+  .hero-image { width: 180px; }
   .hero-sub { font-size: 16px; }
   .hero-actions { flex-direction: column; align-items: flex-start; }
 
@@ -573,19 +603,24 @@ footer {
 <!-- ── HERO ── -->
 <section id="hero">
   <div class="container">
-    <div class="hero-content">
-      <h1>I build performance systems that make execution predictable.</h1>
-      <p class="hero-sub">Enterprise-scale operations executive in regulated, safety-critical environments. I design governance, operating cadence, and leadership infrastructure so performance holds under pressure.</p>
-      <div class="hero-strip">
-        <span>650+ workforce</span>
-        <span>$800M+ asset portfolio</span>
-        <span>Regulated aviation operations</span>
-        <span>Formal inspection governance</span>
-        <span>AI-enabled leadership platform</span>
+    <div class="hero-layout">
+      <div class="hero-content">
+        <h1>I build performance systems that make execution predictable.</h1>
+        <p class="hero-sub">Enterprise-scale operations executive in regulated, safety-critical environments. I design governance, operating cadence, and leadership infrastructure so performance holds under pressure.</p>
+        <div class="hero-strip">
+          <span>650+ workforce</span>
+          <span>$800M+ asset portfolio</span>
+          <span>Regulated aviation operations</span>
+          <span>Formal inspection governance</span>
+          <span>AI-enabled leadership platform</span>
+        </div>
+        <div class="hero-actions">
+          <a href="#connect" class="btn btn-primary">Let's connect</a>
+          <a href="#operating-system" class="btn btn-secondary">See how I build systems →</a>
+        </div>
       </div>
-      <div class="hero-actions">
-        <a href="#connect" class="btn btn-primary">Let's connect</a>
-        <a href="#operating-system" class="btn btn-secondary">See how I build systems →</a>
+      <div class="hero-image">
+        <img src="headshot.png" alt="John H. Frey" width="400" height="482">
       </div>
     </div>
   </div>
@@ -749,7 +784,7 @@ footer {
       <li>Why standards drift in growing organizations</li>
       <li>Designing a shared operating picture</li>
     </ul>
-    <a href="www.linkedin.com/in/jhfrey" class="btn btn-primary" target="_blank" rel="noopener">See notes on LinkedIn</a>
+    <a href="https://www.linkedin.com/in/jhfrey" class="btn btn-primary" target="_blank" rel="noopener">See notes on LinkedIn</a>
   </div>
 </section>
 
